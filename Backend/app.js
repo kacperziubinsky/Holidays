@@ -1,12 +1,10 @@
 const express = require('express');
-const axios = require('axios');
-const mysql = require('mysql');
-const app = express();
 const cors = require('cors')
 const update = require('./routes/update.js');
 const connection = require('./routes/database.js');
 const addHotel = require('./routes/addhote.js');
 const prices = require('./routes/prices.js');
+const app = express();
 
 app.use(express.json(), cors());
 
@@ -47,5 +45,5 @@ app.get('/update', update)
 app.get('/last-update', update)
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+    console.log(`App was started on port:  ${port}`);
 });

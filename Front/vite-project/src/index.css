@@ -76,3 +76,16 @@ li strong{
     background-color: #f9f9f9;
   }
 }
+.items{
+  margin-top: 2rem;
+}
+
+@media only screen and (max-width: 540px) {
+  li{
+    text-align: center;
+  }
+  li strong{
+    display: block;
+  }
+  
+}

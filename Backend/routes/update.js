@@ -80,7 +80,7 @@ async function compareDate(id, startDate, returnDate, oldPrice, status, oldDate)
 
         let filterData = response.data.filter(item => item.startDate == `${startDate}` && item.returnDate == `${returnDate}` );
         const newPrice = filterData[0].price;
-        console.log(newPrice)
+        console.log("ID: ", id, "NOWA CENA: ", newPrice, " STARA CENA: ", oldPrice)
 
         if (oldPrice != newPrice && status == 1) {
             changeStatus(id, oldPrice, startDate, returnDate, oldDate);
@@ -92,7 +92,7 @@ async function compareDate(id, startDate, returnDate, oldPrice, status, oldDate)
 }
 
 
-update.get('/update', (req, res) => {
+update.get('/update', async (req, res) => {
     const hotelQuery = `SELECT * FROM tripdata WHERE Status = 1`;
     connection.query(hotelQuery, async (error, results) => {
         if (error) {
@@ -131,7 +131,7 @@ update.get('/last-update', (req, res) => {
             console.error(error);
             res.status(500).json({ error: 'Failed to retrieve last update time' });
         } else if (results.length > 0) {
-            res.json({ lastUpdate: results[0].last_update });
+            res.json(results[0].last_update);
         } else {
             res.status(404).json({ error: 'No update logs found' });
         }
@@ -139,7 +139,7 @@ update.get('/last-update', (req, res) => {
 });
 
 
-cron.schedule('0 */2 * * *', () => {
+cron.schedule('0 */45 * * * *', () => {
     console.log('Running cron job to update prices...');
     const hotelQuery = `SELECT * FROM tripdata WHERE Status = 1`;
     connection.query(hotelQuery, async (error, results) => {
@@ -161,6 +161,7 @@ cron.schedule('0 */2 * * *', () => {
         }
     });
 });
+
 
 
 module.exports = update;

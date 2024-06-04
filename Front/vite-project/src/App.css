@@ -13,4 +13,9 @@
 
 .read-the-docs {
   color: #888;
+  margin-top: 2rem;
+}
+
+input{
+  margin-bottom: 1rem;
 }
